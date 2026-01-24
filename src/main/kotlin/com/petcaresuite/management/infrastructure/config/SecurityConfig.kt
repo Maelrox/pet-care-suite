@@ -29,7 +29,7 @@ class SecurityConfig(
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http {
-            authorizeRequests {
+            authorizeHttpRequests {
                 authorize(DispatcherTypeRequestMatcher(DispatcherType.FORWARD), permitAll)
                 authorize(DispatcherTypeRequestMatcher(DispatcherType.ERROR), permitAll)
                 authorize("/authentication/**", permitAll)
@@ -40,16 +40,15 @@ class SecurityConfig(
             sessionManagement {
                 sessionCreationPolicy = SessionCreationPolicy.STATELESS
             }
-            addFilterBefore<UsernamePasswordAuthenticationFilter>(authFilter)
             authenticationProvider()
+            addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter::class.java)
         }
         return http.build()
     }
 
     @Bean
     fun authenticationProvider(): AuthenticationProvider {
-        val authProvider = DaoAuthenticationProvider()
-        authProvider.setUserDetailsService(customUserDetailsService)
+        val authProvider = DaoAuthenticationProvider(customUserDetailsService)
         authProvider.setPasswordEncoder(passwordEncoder())
         return authProvider
     }

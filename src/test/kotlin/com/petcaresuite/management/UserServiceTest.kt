@@ -71,6 +71,9 @@ class UserServiceTest {
     @Mock
     private lateinit var companyMapper: CompanyMapper
 
+    @Mock
+    private lateinit var identificationTypeMapper: com.petcaresuite.management.application.mapper.IdentificationTypeMapper
+
     private lateinit var mockUserRegisterDTO: UserRegisterDTO
     private lateinit var mockUserDetailsDTO: UserDetailsDTO
     private lateinit var mockUser: User
@@ -95,7 +98,11 @@ class UserServiceTest {
                 name = "TestCompany",
                 id = null,
                 country = "CO",
-                companyIdentification = "1234567890"
+                companyIdentification = "1234567890",
+                phone = null,
+                address = null,
+                email = null,
+                logoUrl = null
             ),
             email = "test@test.com",
             name = "john doe",
@@ -109,7 +116,11 @@ class UserServiceTest {
             name = "New Company",
             country = "CO",
             companyIdentification = "1234567890",
-            users = null
+            users = null,
+            address = null,
+            phone = null,
+            email = null,
+            logoUrl = null
         )
         mockUser = User(
             username = mockUserRegisterDTO.userName,
@@ -145,7 +156,8 @@ class UserServiceTest {
             companyPersistencePort = companyPersistencePort,
             permissionPersistencePort = permissionPersistencePort,
             roleDomainService = roleDomainService,
-            companyMapper = companyMapper
+            companyMapper = companyMapper,
+            identificationTypeMapper = identificationTypeMapper
         )
         moduleActionsAdmin = ModulesAction(
             id = 1L,

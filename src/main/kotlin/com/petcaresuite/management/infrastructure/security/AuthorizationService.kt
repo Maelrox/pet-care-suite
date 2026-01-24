@@ -12,6 +12,7 @@ class AuthorizationService(
 
     override fun isAuthorized(operation: String, module: String): Boolean {
         val authentication = SecurityContextHolder.getContext().authentication
+            ?: return false
         val username = authentication.name
         val user = userService.getByUserName(username)
         return user.roles!!.any { it.name == "ADMIN" }

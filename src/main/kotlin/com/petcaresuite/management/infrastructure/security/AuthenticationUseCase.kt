@@ -37,7 +37,7 @@ class AuthenticationUseCase(
         val moduleActionIds = user.roles!!
             .flatMap { role -> role.permissions!! }
             .flatMap { permission -> permission.modulesAction!! }
-            .map { moduleAction -> moduleAction.id }
+            .mapNotNull { moduleAction -> moduleAction.id }
             .toSet()
         val moduleActions = jpaModuleActionRepository.findAllById(moduleActionIds)
         val userDetailsDTO = userMapper.toLoginDTO(user, moduleActions)

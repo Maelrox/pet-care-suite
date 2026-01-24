@@ -358,8 +358,8 @@ class JpaDashboardRepository(private val jdbcTemplate: JdbcTemplate) {
 
         return HotmetricDTO(
             peakHours = peakHourFormatted,
-            highTraffic = highTrafficPercentage.toInt(),
-            consultations = lastDayConsultations
+            highTraffic = (highTrafficPercentage ?: 0.0).toInt(),
+            consultations = lastDayConsultations ?: 0
         )
     }
 

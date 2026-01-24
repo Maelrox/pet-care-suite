@@ -34,6 +34,9 @@ class CompanyServiceTest {
     @Mock
     private lateinit var userService: UserService
 
+    @Mock
+    private lateinit var companyFileStoragePort: com.petcaresuite.management.application.port.output.CompanyFileStoragePort
+
     private lateinit var companyService: CompanyService
     private lateinit var mockUser: User
     private lateinit var mockCompany: Company
@@ -46,13 +49,21 @@ class CompanyServiceTest {
             companyIdentification = "123456",
             name = "Test Company",
             country = "US",
-            users = emptyList()
+            users = emptyList(),
+            address = null,
+            phone = null,
+            email = null,
+            logoUrl = null
         )
 
         mockCompanyDTO = CompanyDTO(
             companyIdentification = "123456",
             name = "Test Company",
-            country = "US"
+            country = "US",
+            phone = null,
+            address = null,
+            email = null,
+            logoUrl = null
         )
 
         mockUser = User(
@@ -75,7 +86,8 @@ class CompanyServiceTest {
             companyDomainService,
             companyPersistencePort,
             companyMapper,
-            userService
+            userService,
+            companyFileStoragePort
         )
     }
 

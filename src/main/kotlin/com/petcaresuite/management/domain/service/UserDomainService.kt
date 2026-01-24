@@ -17,9 +17,10 @@ class UserDomainService(
 ) {
 
     fun validateUpdatePermission(userUpdateDTO: UserUpdateDTO) {
-        val currentUserId: CustomUserDetails =
-            SecurityContextHolder.getContext().authentication.principal as CustomUserDetails
-        if (currentUserId.getUserId() != userUpdateDTO.id && !SecurityContextHolder.getContext().authentication.authorities.any { it.authority == "SYSADMIN" }) {
+        val authentication = SecurityContextHolder.getContext().authentication
+            ?: throw IllegalStateException("Authentication not found")
+        val currentUserId: CustomUserDetails = authentication.principal as CustomUserDetails
+        if (currentUserId.getUserId() != userUpdateDTO.id && !authentication.authorities.any { it.authority == "SYSADMIN" }) {
             throw IllegalAccessException(Responses.USER_UPDATE_NOT_ALLOWED)
         }
     }

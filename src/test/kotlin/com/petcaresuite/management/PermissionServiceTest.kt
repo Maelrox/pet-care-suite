@@ -207,7 +207,11 @@ class PermissionServiceTest {
             id = 1L,
             name = "Test Company",
             country = "CO",
-            companyIdentification = "1234567890"
+            companyIdentification = "1234567890",
+            phone = null,
+            address = null,
+            email = null,
+            logoUrl = null
         )
         val permissionDTO = PermissionDTO(
             name = "Test Permission",
@@ -243,7 +247,11 @@ class PermissionServiceTest {
             id = 1L,
             name = "Test Company",
             country = "CO",
-            companyIdentification = "1234567890"
+            companyIdentification = "1234567890",
+            phone = null,
+            address = null,
+            email = null,
+            logoUrl = null
         )
 
         Mockito.`when`(userService.getCurrentUser()).thenReturn(mockUser)

@@ -9,15 +9,16 @@ import org.mapstruct.Mappings
 @Mapper(componentModel = "spring", uses = [CompanyEntityMapper::class, ModuleEntityMapper::class])
 interface RoleEntityMapper {
 
-    @Mappings(
-        Mapping(target = "company", source = "company"),
-    )
+    @Mapping(target = "company", ignore = true)
+    @Mapping(target = "permissions", ignore = true)
     fun toEntity(roleModel: Role): RoleEntity
 
     fun toDomain(roleEntity: RoleEntity): Role
 
     fun toDomainSet(roleEntities: List<RoleEntity>): List<Role>
 
+    @Mapping(target = "company", ignore = true)
+    @Mapping(target = "permissions", ignore = true)
     fun toEntity(roleModel: List<Role>): List<RoleEntity>
 
 }

@@ -8,13 +8,9 @@ import org.mapstruct.Mapping
 @Mapper(componentModel = "spring")
 interface CompanyEntityMapper {
 
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "country", source = "country")
-    @Mapping(target = "companyIdentification", source = "companyIdentification")
-    @Mapping(target = "users", expression = "java(java.util.Collections.emptyList())")
+    @Mapping(target = "users", ignore = true)
     fun toEntity(company: Company): CompanyEntity
 
-    @Mapping(target = "users", expression = "java(java.util.Collections.emptyList())")
+    @Mapping(target = "users", ignore = true)
     fun toDomain(companyEntity: CompanyEntity): Company
 }

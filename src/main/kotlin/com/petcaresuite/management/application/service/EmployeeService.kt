@@ -120,11 +120,11 @@ class EmployeeService(
     fun getCurrentUsername(): String? {
         val authentication: Authentication? = SecurityContextHolder.getContext().authentication
         if (authentication != null && authentication.isAuthenticated) {
-            val principal: Any = authentication.principal
+            val principal = authentication.principal
             return if (principal is UserDetails) {
                 principal.username
             } else {
-                principal.toString()
+                principal?.toString()
             }
         }
         return null

@@ -9,10 +9,13 @@ import org.mapstruct.Mappings
 
 @Mapper(componentModel = "spring", uses = [RoleEntityMapper::class])
 interface UserEntityMapper {
+    @Mapping(target = "company", ignore = true)
+    @Mapping(target = "roles", ignore = true)
     fun toEntity(userModel: User): UserEntity
 
     @Mappings(
         Mapping(target = "company.users", ignore = true),
+        Mapping(target = "companyId", source = "company.id"),
     )
     fun toDomain(userEntity: UserEntity): User
 }

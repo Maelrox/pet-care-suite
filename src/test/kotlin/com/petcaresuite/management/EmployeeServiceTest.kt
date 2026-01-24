@@ -171,9 +171,22 @@ class EmployeeServiceTest {
     @Test
     fun `update - successful employee update`() {
         // Given
-        val updateDTO = mockEmployeeRegisterDTO.copy(
+        val updateDTO = EmployeeUpdateDTO(
             id = 1L,
-            password = "NewPassword123!"
+            username = mockEmployeeRegisterDTO.username,
+            password = "NewPassword123!",
+            email = mockEmployeeRegisterDTO.email,
+            roles = setOf(RoleDTO(
+                id = mockRole.id,
+                name = mockRole.name,
+                company = null,
+                permissions = null
+            )),
+            name = mockEmployeeRegisterDTO.name,
+            phone = mockEmployeeRegisterDTO.phone,
+            country = mockEmployeeRegisterDTO.country,
+            enabled = mockEmployeeRegisterDTO.enabled,
+            companyId = mockEmployeeRegisterDTO.companyId
         )
         val encodedPassword = "NewPassword123!"
 

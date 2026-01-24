@@ -20,9 +20,10 @@ class EmployeeDomainService(
 ) {
 
     fun validateUpdatePermission(employeeRegisterDTO: EmployeeUpdateDTO) {
-        val currentUser: CustomUserDetails =
-            SecurityContextHolder.getContext().authentication.principal as CustomUserDetails
-        if (currentUser.getUserId() != employeeRegisterDTO.id && !SecurityContextHolder.getContext().authentication.authorities.any { it.authority == "ADMIN" }) {
+        val authentication = SecurityContextHolder.getContext().authentication
+            ?: throw IllegalStateException("Authentication not found")
+        val currentUser: CustomUserDetails = authentication.principal as CustomUserDetails
+        if (currentUser.getUserId() != employeeRegisterDTO.id && !authentication.authorities.any { it.authority == "ADMIN" }) {
             throw IllegalAccessException(Responses.USER_UPDATE_NOT_ALLOWED)
         }
     }
@@ -31,7 +32,9 @@ class EmployeeDomainService(
         if (currentUser.companyId != userToUpdate.companyId) {
             throw IllegalAccessException(Responses.USER_UPDATE_INVALID_COMPANY)
         }
-        if (!SecurityContextHolder.getContext().authentication.authorities.any { it.authority == "ADMIN" }) {
+        val authentication = SecurityContextHolder.getContext().authentication
+            ?: throw IllegalStateException("Authentication not found")
+        if (!authentication.authorities.any { it.authority == "ADMIN" }) {
             throw IllegalAccessException(Responses.USER_UPDATE_NOT_ALLOWED)
         }
     }

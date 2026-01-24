@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class AuthenticationFailureListener(private val loggingAttemptAdapter: LoginAttemptAdapter) :
-    ApplicationListener<AuthenticationFailureBadCredentialsEvent?> {
+    ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
 
     @Autowired
     private val request: HttpServletRequest? = null

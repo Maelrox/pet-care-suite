@@ -11,7 +11,7 @@ class CustomUserDetails(val user: User) : UserDetails {
     private val username: String = user.username!!
     private val password: String = user.password ?: throw IllegalArgumentException("Password cannot be null")
     private val authorities: Collection<GrantedAuthority> = user.roles!!
-        .map { role -> SimpleGrantedAuthority(role.name) }
+        .mapNotNull { role -> role.name?.let { SimpleGrantedAuthority(it) } }
         .toList()
 
     private val enabled: Boolean = user.enabled!!
